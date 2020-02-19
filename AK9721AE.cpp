@@ -1,5 +1,21 @@
 #include "AK9721AE.h"
 
+int AK9721AE::get_IR1(){
+  return _IR1;
+}
+
+int AK9721AE::get_IR2(){
+  return _IR2;
+}
+
+int AK9721AE::get_temp(){
+  return _temp;
+}
+        
+int AK9721AE::get_forward_volt(){
+  return _forward_volt;
+}
+
 /*
 
 custom implementation of the i2c write steps
@@ -164,7 +180,7 @@ int AK9721AE::convert_to_LED_milli_volts(int _value){
 }
 
 
-AK9721AE_data AK9721AE::get_sonsor_data(){
+void AK9721AE::get_sonsor_data(){
 
     //measure mode settings
     write_to_i2c(0x14,0x2);
@@ -207,18 +223,9 @@ AK9721AE_data AK9721AE::get_sonsor_data(){
     _LED_for_voltage = _LED_forward_volt_low<<8 | _LED_forward_volt_high;
 
     
-    int IR1mVolts = convert_to_CO2_milli_volts(_IR1);
-    int IR2mVolts = convert_to_CO2_milli_volts(_IR2);
-    int temp = convert_to_temperature(_temp);
-    int forward_volt = convert_to_LED_milli_volts(_LED_for_voltage);
-
-    AK9721AE_data _device_data;
-    _device_data.IR1 = IR1mVolts;
-    _device_data.IR2 = IR2mVolts;
-    _device_data.temp = temp;
-    _device_data.forward_volt = forward_volt;
-
-
-    return _device_data;
+    _IR1 = convert_to_CO2_milli_volts(_IR1);
+    _IR2 = convert_to_CO2_milli_volts(_IR2);
+    _temp = convert_to_temperature(_temp);
+    _forward_volt = convert_to_LED_milli_volts(_LED_for_voltage);
 
 }

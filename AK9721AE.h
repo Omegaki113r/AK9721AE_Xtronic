@@ -3,7 +3,6 @@
 
 #include<Arduino.h>
 #include<Wire.h>
-#include "AK9721AE_data.h"
 
 
 class AK9721AE{
@@ -20,10 +19,14 @@ class AK9721AE{
         int convert_to_CO2_milli_volts(int _value);
         int convert_to_temperature(int _value);
         int convert_to_LED_milli_volts(int _value);
-        AK9721AE_data get_sonsor_data();
+        void get_sonsor_data();
     private:
         int _INTN;
         int _PDN;
         int _RESET;
+        int _IR1 = 0;
+        int _IR2 = 0;
+        int _temp = 0;
+        int _forward_volt = 0;
 };
 #endif
